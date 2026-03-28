@@ -1,9 +1,10 @@
 import { useState, useCallback } from 'react';
 import { Grid } from './components/Grid';
 import { bfs } from './algorithms/bfs';
+import { dijkstra } from './algorithms/dijkstra';
 import { useGrid } from './hooks/useGrid';
 import { useTheme } from './hooks/useTheme';
-import type { InteractionMode } from './types';
+import type { Algorithm, InteractionMode } from './types';
 import './App.css';
 
 const VISIT_DELAY_MS = 15;
@@ -26,6 +27,7 @@ export default function App() {
 
   const { theme, toggle: toggleTheme } = useTheme();
   const [isRunning, setIsRunning] = useState(false);
+  const [algorithm, setAlgorithm] = useState<Algorithm>('bfs');
 
   const runBFS = useCallback(async () => {
     clearPath();
@@ -42,7 +44,9 @@ export default function App() {
 
     setIsRunning(true);
 
-    const { visitedInOrder, shortestPath } = bfs(grid, start, end);
+    const { visitedInOrder, shortestPath } = algorithm === 'dijkstra'
+      ? dijkstra(grid, start, end)
+      : bfs(grid, start, end);
 
     // --- Animate visited nodes via direct DOM manipulation ---
     // Why DOM instead of setState per frame?
@@ -107,7 +111,17 @@ export default function App() {
 
       <header className="app__header">
         <h1>Pathfinding Visualizer</h1>
-        <p className="app__subtitle">Algorithm: <strong>BFS</strong></p>
+        <p className="app__subtitle">
+          Algorithm:{' '}
+          <select
+            value={algorithm}
+            onChange={(e) => setAlgorithm(e.target.value as Algorithm)}
+            disabled={isRunning}
+          >
+            <option value="bfs">BFS</option>
+            <option value="dijkstra">Dijkstra</option>
+          </select>
+        </p>
       </header>
 
       <div className="app__controls">
@@ -126,7 +140,7 @@ export default function App() {
 
         <div className="action-buttons">
           <button className="btn btn--run" onClick={runBFS} disabled={isRunning}>
-            {isRunning ? 'Running…' : 'Run BFS'}
+            {isRunning ? 'Running…' : `Run ${algorithm.toUpperCase()}`}
           </button>
           <button className="btn btn--secondary" onClick={clearPath} disabled={isRunning}>
             Clear Path
