@@ -1,14 +1,25 @@
+/* ── Node token defaults (inherit from :root / [data-theme]) ── */
+:root {
+  --color-node-empty:   #ffffff;
+  --color-node-border:  #ccc;
+}
+
+[data-theme="dark"] {
+  --color-node-empty:  #1e293b;
+  --color-node-border: #334155;
+}
+
 .node {
   width: 24px;
   height: 24px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-node-border);
   box-sizing: border-box;
   cursor: pointer;
   transition: background-color 0.05s;
 }
 
 .node--empty {
-  background-color: #fff;
+  background-color: var(--color-node-empty);
 }
 
 .node--wall {
@@ -17,12 +28,12 @@
 }
 
 .node--start {
-  background-color: #4ade80; /* green */
+  background-color: #4ade80;
   border-color: #16a34a;
 }
 
 .node--end {
-  background-color: #f87171; /* red */
+  background-color: #f87171;
   border-color: #dc2626;
 }
 
@@ -32,7 +43,7 @@
 }
 
 @keyframes visitedAnim {
-  0%   { background-color: #fff; transform: scale(1); }
+  0%   { background-color: var(--color-node-empty); transform: scale(1); }
   50%  { background-color: #a78bfa; transform: scale(1.15); }
   100% { background-color: #818cf8; transform: scale(1); }
 }

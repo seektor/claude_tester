@@ -42,6 +42,17 @@ Visited/path animations write directly to the DOM (`getElementById` + `classList
 React reconciling the full grid (~800 nodes) on every animation frame. State is synced back
 once the animation completes. This is intentional — do not replace with `setState` per frame.
 
+## Task specs
+
+Feature/task definitions live in `tasks/*.md`. To implement one, say:
+> "Implement tasks/foo.md"
+
+Use `tasks/_template.md` as the starting point for new specs. Each spec has:
+- **Goal** — what and why
+- **Acceptance criteria** — observable behaviors when done
+- **Technical notes** — constraints, file locations, contracts to follow
+- **Out of scope** — what to intentionally skip
+
 ## Roadmap
 
 - [ ] Dijkstra (`src/algorithms/dijkstra.ts`)

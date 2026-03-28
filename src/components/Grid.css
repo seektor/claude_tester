@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(var(--grid-cols, 40), 24px);
   gap: 0;
-  border: 2px solid #ccc;
+  border: 2px solid var(--color-border-light);
   user-select: none;
   margin: 0 auto;
 }

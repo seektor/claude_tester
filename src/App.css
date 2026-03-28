@@ -4,10 +4,48 @@
   padding: 0;
 }
 
+/* ── Theme tokens ─────────────────────────────────────── */
+:root {
+  --color-bg:           #f8fafc;
+  --color-surface:      #ffffff;
+  --color-border:       #cbd5e1;
+  --color-border-light: #ccc;
+  --color-text:         #1e293b;
+  --color-text-heading: #0f172a;
+  --color-text-muted:   #64748b;
+  --color-text-legend:  #475569;
+
+  --color-btn-mode-bg:     #e2e8f0;
+  --color-btn-mode-text:   #334155;
+  --color-btn-mode-hover:  #cbd5e1;
+  --color-btn-secondary-bg:    #ffffff;
+  --color-btn-secondary-text:  #334155;
+  --color-btn-secondary-hover: #f1f5f9;
+}
+
+[data-theme="dark"] {
+  --color-bg:           #0f172a;
+  --color-surface:      #1e293b;
+  --color-border:       #334155;
+  --color-border-light: #334155;
+  --color-text:         #e2e8f0;
+  --color-text-heading: #f8fafc;
+  --color-text-muted:   #94a3b8;
+  --color-text-legend:  #94a3b8;
+
+  --color-btn-mode-bg:     #1e293b;
+  --color-btn-mode-text:   #cbd5e1;
+  --color-btn-mode-hover:  #334155;
+  --color-btn-secondary-bg:    #1e293b;
+  --color-btn-secondary-text:  #cbd5e1;
+  --color-btn-secondary-hover: #334155;
+}
+
+/* ── Base ─────────────────────────────────────────────── */
 body {
   font-family: system-ui, sans-serif;
-  background: #f8fafc;
-  color: #1e293b;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 .app {
@@ -26,16 +64,39 @@ body {
 .app__header h1 {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-heading);
 }
 
 .app__subtitle {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 0.95rem;
   margin-top: 4px;
 }
 
-/* Controls */
+/* ── Theme toggle ─────────────────────────────────────── */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-btn-mode-bg);
+  color: var(--color-btn-mode-text);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  z-index: 100;
+}
+
+.theme-toggle:hover {
+  background: var(--color-btn-mode-hover);
+}
+
+/* ── Controls ─────────────────────────────────────────── */
 .app__controls {
   display: flex;
   flex-wrap: wrap;
@@ -65,13 +126,13 @@ body {
 }
 
 .btn--mode {
-  background: #e2e8f0;
-  color: #334155;
-  border-color: #e2e8f0;
+  background: var(--color-btn-mode-bg);
+  color: var(--color-btn-mode-text);
+  border-color: var(--color-btn-mode-bg);
 }
 
 .btn--mode:hover:not(:disabled) {
-  background: #cbd5e1;
+  background: var(--color-btn-mode-hover);
 }
 
 .btn--active {
@@ -91,16 +152,16 @@ body {
 }
 
 .btn--secondary {
-  background: #fff;
-  color: #334155;
-  border-color: #cbd5e1;
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-btn-secondary-text);
+  border-color: var(--color-border);
 }
 
 .btn--secondary:hover:not(:disabled) {
-  background: #f1f5f9;
+  background: var(--color-btn-secondary-hover);
 }
 
-/* Legend */
+/* ── Legend ───────────────────────────────────────────── */
 .app__legend {
   display: flex;
   gap: 16px;
@@ -113,7 +174,7 @@ body {
   align-items: center;
   gap: 6px;
   font-size: 0.8rem;
-  color: #475569;
+  color: var(--color-text-legend);
 }
 
 .legend-item::before {
@@ -122,16 +183,16 @@ body {
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border-light);
 }
 
-.legend-item--start::before  { background: #4ade80; }
-.legend-item--end::before    { background: #f87171; }
-.legend-item--wall::before   { background: #1a1a2e; }
+.legend-item--start::before   { background: #4ade80; }
+.legend-item--end::before     { background: #f87171; }
+.legend-item--wall::before    { background: #1a1a2e; }
 .legend-item--visited::before { background: #818cf8; }
-.legend-item--path::before   { background: #facc15; }
+.legend-item--path::before    { background: #facc15; }
 
-/* Grid wrapper */
+/* ── Grid wrapper ─────────────────────────────────────── */
 .grid-wrapper {
   overflow-x: auto;
   width: 100%;
