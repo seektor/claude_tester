@@ -21,4 +21,4 @@ export type Grid = GridNode[][];
 
 export type InteractionMode = 'wall' | 'start' | 'end';
 
-export type Algorithm = 'bfs'; // will extend to 'dijkstra' | 'astar' in later tickets
+export type Algorithm = 'bfs' | 'dijkstra';
