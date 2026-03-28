@@ -144,14 +144,16 @@ async function postReview(
   review: AgentReview,
   validLines: Set<string>,
 ): Promise<void> {
-  const filteredComments = review.comments.filter(({ path, line }) => {
-    const key = `${path}:${line}`;
-    if (!validLines.has(key)) {
-      console.warn(`[${label}] Skipping comment on ${key} (not in diff)`);
-      return false;
-    }
-    return true;
-  });
+  const filteredComments = review.comments
+    .filter(({ path, line }) => {
+      const key = `${path}:${line}`;
+      if (!validLines.has(key)) {
+        console.warn(`[${label}] Skipping comment on ${key} (not in diff)`);
+        return false;
+      }
+      return true;
+    })
+    .map((comment) => ({ ...comment, body: `**[${label}]** ${comment.body}` }));
 
   const payload = {
     body: `**[${label}]**\n\n${review.body}`,
